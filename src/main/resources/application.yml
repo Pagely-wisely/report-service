@@ -1,0 +1,6 @@
+server:
+  port: 19061
+
+spring:
+  application:
+    name: report-service
