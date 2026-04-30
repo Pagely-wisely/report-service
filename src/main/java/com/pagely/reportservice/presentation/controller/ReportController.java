@@ -8,6 +8,7 @@ import com.pagely.reportservice.application.dto.result.ReportResult;
 import com.pagely.reportservice.application.service.ReportCommandService;
 import com.pagely.reportservice.presentation.dto.request.CreateReportRequestDto;
 import com.pagely.reportservice.presentation.dto.response.CreateReportResponseDto;
+import jakarta.validation.Valid;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class ReportController {
     @PostMapping
     ResponseEntity<ApiResponse> createReport(
             @CurrentUserId UUID userId,
-            @RequestBody CreateReportRequestDto request
+            @Valid @RequestBody CreateReportRequestDto request
     ) {
         ReportResult report = reportCommandService.createReport(request.toCommand(userId));
         return ApiResponse.ok(CreateReportResponseDto.from(report));
