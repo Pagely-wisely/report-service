@@ -2,5 +2,38 @@ server:
   port: 19061
 
 spring:
+  config:
+    import: optional:classpath:/.env[.properties]
+
   application:
-    name: report-service
+    name: reportservice
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${REPORT_DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+logging:
+  level:
+    org.flywaydb: info
+    com.pagely.bookservice: info
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
