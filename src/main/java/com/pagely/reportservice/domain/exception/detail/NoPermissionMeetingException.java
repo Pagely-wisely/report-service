@@ -5,7 +5,7 @@ import com.pagely.reportservice.domain.exception.ReportException;
 
 public class NoPermissionMeetingException extends ReportException {
     public NoPermissionMeetingException() {
-        super(ReportErrorCode.MEETING_ACCESS_FORBIDDER);
+        super(ReportErrorCode.MEETING_ACCESS_FORBIDDEN);
     }
 
     public NoPermissionMeetingException(ReportErrorCode errorCode) {
