@@ -16,5 +16,10 @@ CREATE TABLE IF NOT EXISTS p_report
     deleted_at          TIMESTAMP,
     deleted_by          UUID,
 
-    CONSTRAINT chk_read_scope CHECK (read_scope IN ('PUBLIC', 'PRIVATE', 'MEETING'))
+    CONSTRAINT chk_read_scope CHECK (read_scope IN ('PUBLIC', 'PRIVATE', 'MEETING')),
+    CONSTRAINT chk_meeting_required
+        CHECK (
+                read_scope <> 'MEETING'
+                OR (meeting_id IS NOT NULL AND meeting_schedule_id IS NOT NULL)
+            )
 );
