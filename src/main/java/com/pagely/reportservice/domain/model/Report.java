@@ -89,6 +89,11 @@ public class Report extends BaseEntity {
             throw new InvalidUserException(ReportErrorCode.USER_NULL);
         }
 
+        if (readScope != ReadScope.MEETING
+                && (Objects.nonNull(meetingId) || Objects.nonNull(scheduleId))) {
+            throw new MisMatchReadScopeException();
+        }
+
         if (readScope == ReadScope.MEETING) {
             validateMeetingScope(userId, meetingId, scheduleId, meetingChecker);
         }
