@@ -30,7 +30,7 @@ jobs:
     env:
       DB_HOST: localhost
       DB_PORT: 5432
-      BOOK_DB_NAME: pagely_report
+      REPORT_DB_NAME: pagely_report
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
       GPR_USER: ${{ secrets.GPR_USER }} # Repository Secret 값을 빌드 환경변수로 주입
