@@ -30,10 +30,23 @@ spring:
 logging:
   level:
     org.flywaydb: info
-    com.pagely.bookservice: info
+    com.pagely.reportservice: debug
+
+feign:
+  circuitbreaker:
+    enabled: true
 
 eureka:
   client:
-    enabled: false
     register-with-eureka: false
     fetch-registry: false
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8000/eureka/}
+  internal:
+    meeting-service: internal/meetings
+    book-service: internal/books
+
+api:
+  internal:
+    meeting-service: http://localhost:19011/internal/meetings
+    book-service: http://localhost:19051/internal/books

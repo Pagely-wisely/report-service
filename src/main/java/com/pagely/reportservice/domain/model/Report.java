@@ -107,7 +107,7 @@ public class Report extends BaseEntity {
         if (Objects.isNull(scheduleId)) {
             throw new InvalidMeetingException();
         }
-        if (!meetingChecker.hasMeetingId(userId, meetingId)) {
+        if (!meetingChecker.hasMeetingId(userId, meetingId, scheduleId)) {
             throw new NoPermissionMeetingException();
         }
     }
