@@ -15,3 +15,7 @@ api:
   internal:
     meeting-service: http://localhost:19011/internal/meetings
     book-service: http://localhost:19051/internal/books
+
+eureka:
+  client:
+    enabled: false
