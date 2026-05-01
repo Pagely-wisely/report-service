@@ -10,3 +10,8 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
   flyway:
     enabled: false
+
+api:
+  internal:
+    meeting-service: http://localhost:19011/internal/meetings
+    book-service: http://localhost:19051/internal/books
