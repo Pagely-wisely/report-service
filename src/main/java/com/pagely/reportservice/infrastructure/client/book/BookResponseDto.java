@@ -10,7 +10,7 @@ public record BookResponseDto(
         Data data
 ) {
     public BookResult toResult() {
-        if (Objects.isNull(data)) {
+        if (!success || Objects.isNull(data)) {
             throw new NotFoundBookException();
         }
         return new BookResult(

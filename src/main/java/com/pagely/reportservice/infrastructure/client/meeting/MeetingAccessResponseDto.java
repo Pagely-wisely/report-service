@@ -11,10 +11,17 @@ public record MeetingAccessResponseDto(
     public record Data(
             List<Meeting> meetings
     ) {
+        public Data {
+            meetings = meetings == null ? List.of() : List.copyOf(meetings);
+        }
+
         public record Meeting(
                 UUID meetingId,
                 List<UUID> scheduleIds
         ) {
+            public Meeting {
+                scheduleIds = scheduleIds == null ? List.of() : List.copyOf(scheduleIds);
+            }
         }
     }
 }

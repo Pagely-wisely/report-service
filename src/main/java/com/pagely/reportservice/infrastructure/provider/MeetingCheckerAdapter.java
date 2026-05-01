@@ -22,6 +22,10 @@ public class MeetingCheckerAdapter implements MeetingChecker {
     public boolean hasMeetingId(UUID userId, UUID meetingId, UUID scheduleId) {
         MeetingAccessResponseDto response = meetingClient.getByUserId(userId);
 
+        if (Objects.isNull(response.success()) || !response.success()) {
+            throw new NotFountMeetingException();
+        }
+
         if (Objects.isNull(response)
                 || Objects.isNull(response.data())
                 || Objects.isNull(response.data().meetings())) {
