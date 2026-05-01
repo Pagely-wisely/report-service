@@ -18,12 +18,10 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,19 +46,16 @@ public class ReportController {
     @AuthRequired(role = {Role.MASTER, Role.CREATOR, Role.USER})
     @GetMapping
     public ResponseEntity<ApiResponse> getReports(
-            @RequestHeader("X-User-Id") UUID userId,
+            @CurrentUserId UUID userId,
             @RequestParam(required = false) ReadScope readScope,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "createdAt") String sortBy,
-            @RequestParam(defaultValue = "DESC") Sort.Direction direction
+            @RequestParam(defaultValue = "10") int size
     ) {
-        Sort sort = Sort.by(direction, sortBy);
-        Pageable pageable = PageRequest.of(page, size).toPageable(sort);
+        Pageable pageable = PageRequest.of(page, size).toPageable();
         GetReportsQuery query = new GetReportsQuery(userId, readScope);
 
         Page<ReportResult> result = reportQueryService.getReports(query, pageable);
-        
+
         return ApiResponse.ok(result, GetReportsResponseDto::from);
     }
 }
