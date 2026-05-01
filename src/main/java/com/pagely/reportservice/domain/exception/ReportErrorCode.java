@@ -24,6 +24,13 @@ public enum ReportErrorCode implements ErrorCode {
      */
     MEETING_ACCESS_FORBIDDEN("해당 모임에 접근 권한이 없습니다.", HttpStatus.FORBIDDEN),
     MEETING_CREATE_FORBIDDEN("해당 모임에 독후감 작성 권한이 없습니다.", HttpStatus.FORBIDDEN),
+
+    /*
+     * =======================================
+     * 404 NOTFOUND
+     * =======================================
+     */
+    BOOK_NOT_FOUND("도서 정보가 존재하지 않습니다.", HttpStatus.NOT_FOUND),
     ;
 
     private final String message;
