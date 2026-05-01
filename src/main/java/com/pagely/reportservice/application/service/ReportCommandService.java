@@ -4,6 +4,8 @@ import com.pagely.reportservice.application.dto.command.CreateReportCommand;
 import com.pagely.reportservice.application.dto.result.BookResult;
 import com.pagely.reportservice.application.dto.result.ReportResult;
 import com.pagely.reportservice.application.port.out.BookProvider;
+import com.pagely.reportservice.domain.event.ReportEvents;
+import com.pagely.reportservice.domain.event.payload.ReportCreatedEvent;
 import com.pagely.reportservice.domain.exception.detail.NotFoundBookException;
 import com.pagely.reportservice.domain.model.Report;
 import com.pagely.reportservice.domain.repository.ReportRepository;
@@ -22,6 +24,7 @@ public class ReportCommandService {
     private final ReportRepository reportRepository;
     private final MeetingChecker meetingChecker;
     private final BookProvider bookProvider;
+    private final ReportEvents reportEvents;
 
     public ReportResult createReport(CreateReportCommand command) {
 
@@ -36,8 +39,11 @@ public class ReportCommandService {
                         command.title(), command.content(), command.readScope(),
                         command.bookId(), command.userId(),
                         command.meetingId(), command.scheduleId(), meetingChecker));
-        // TODO: 독후감 생성 이벤트 발행
+
+        ReportResult reportResult = ReportResult.from(saved);
+        reportEvents.event(ReportCreatedEvent.of(reportResult, bookResult));
+
         log.info("독후감 생성");
-        return ReportResult.from(saved);
+        return reportResult;
     }
 }
