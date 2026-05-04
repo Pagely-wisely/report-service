@@ -16,12 +16,13 @@ public class ReportCreatedEvent extends BaseEvent {
     public static ReportCreatedEvent of(ReportResult report, BookResult book) {
         return new ReportCreatedEvent(
                 report.reportId(),
-                new Payload(book.id(), book.title(), book.categoryName(), book.author(),
+                new Payload(book.id(), book.title(), book.categoryName(), book.author(), book.description(),
                         report.userId(), report.reportId(), report.content(),
                         report.meetingId(), report.scheduleId(), report.createdAt()));
     }
 
     public record Payload(String bookId, String bookName, String bookCategory, String bookAuthors,
+                          String bookDescription,
                           UUID userId, UUID reportId, String reportContent,
                           UUID meetingId, UUID meetingScheduleId, LocalDateTime createdAt) {
     }
