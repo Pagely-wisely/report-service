@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(
         name = "meetingservice",
-//        path = "${eureka.internal.meeting-service}",
-        url = "${api.internal.meeting-service}",
+        path = "${eureka.internal.meeting-service}",
+//        url = "${api.internal.meeting-service}",
         configuration = FeignClientConfig.class
 )
 public interface MeetingClient {

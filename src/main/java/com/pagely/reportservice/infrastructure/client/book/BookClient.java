@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(
         name = "bookservice",
-//        path = "${eureka.internal.book-service}",
-        url = "${api.internal.book-service}",
+        path = "${eureka.internal.book-service}",
+//        url = "${api.internal.book-service}",
         configuration = FeignClientConfig.class
 )
 public interface BookClient {
