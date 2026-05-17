@@ -48,11 +48,13 @@ feign:
     enabled: true
 
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8000/eureka/}
+      defaultZone: ${EUREKA_SERVER_URL:http://host.docker.internal:8000/eureka/}
   internal:
     meeting-service: internal/meetings
     book-service: internal/books
