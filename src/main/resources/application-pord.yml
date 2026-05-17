@@ -1,0 +1,63 @@
+server:
+  port: 19061
+
+spring:
+  config:
+    import: optional:classpath:/.env[.properties]
+
+  application:
+    name: reportservice
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${REPORT_DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+  kafka:
+    bootstrap-servers: ${KAFKA_EXTERNAL_HOST}:${KAFKA_EXTERNAL_PORT}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        spring.json.add.type.headers: false
+
+logging:
+  level:
+    org.flywaydb: info
+    com.pagely.reportservice: info
+
+feign:
+  circuitbreaker:
+    enabled: true
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8000/eureka/}
+  internal:
+    meeting-service: internal/meetings
+    book-service: internal/books
+
+api:
+  internal:
+    meeting-service: http://localhost:19011/internal/meetings
+    book-service: http://localhost:19051/internal/books
