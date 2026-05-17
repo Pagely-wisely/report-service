@@ -1,2 +1,2 @@
 # report-service
-Pagely 독후감 서비스
+Pagely 독후감 서비스 
